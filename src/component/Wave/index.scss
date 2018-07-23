@@ -1,0 +1,18 @@
+/**
+ * @author: 	felix 
+ * @email: 	307253927@qq.com 
+ * @date: 	2018-06-22 13:45:11 
+ * @last Modified by:   felix 
+ * @last Modified time: 2018-06-22 13:45:11 
+ */
+
+@charset 'utf-8';
+.wave {
+  height: 64px;
+  overflow: hidden;
+  position: relative;
+  background-color: #f2f2f2;
+  &.end wave>wave:first-child {
+    width: 100% !important;
+  }
+}

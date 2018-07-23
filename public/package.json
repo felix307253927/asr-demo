@@ -1,0 +1,29 @@
+{
+  "name": "recorder",
+  "version": "1.0.1",
+  "main": "electron.bundle.js",
+  "author": "felix",
+  "license": "ISC",
+  "scripts": {
+    "start": "electron .",
+    "build-win64": "build --win --x64",
+    "build-win32": "build --win --ia32"
+  },
+  "description": "云知声录音系统",
+  "dependencies": {},
+  "build": {
+    "appId": "com.unisound.recorder",
+    "productName": "Recorder",
+    "win": {
+      "target": "nsis",
+      "icon": "resources\\icon\\icon.ico",
+      "verifyUpdateCodeSignature": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "resources\\icon\\icon.ico",
+      "language": "2052"
+    }
+  }
+}

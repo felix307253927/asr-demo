@@ -1,0 +1,209 @@
+.bg {
+  background: url(./asr_bg.jpg) center 0 no-repeat;
+	min-width: 1300px;
+	height: 100%;
+	min-height: 900px
+}
+
+.bg .mainContent {
+  border: 1px solid #38FFFA;
+  height: 650px;
+  margin-top: 130px;
+  margin-bottom: 70px;
+  padding: 0px;
+  overflow: visible;
+}
+
+.bg .mainContent .back {
+  width: 150px;
+  height: 40px;
+  position: relative;
+  left: 88%;
+  top: -70px;
+  cursor: pointer;
+}
+
+.bg .mainContent .left-zone {
+  display: inline-block;
+  float: left;
+  height: 400px;
+  width: 69.5%;
+  margin-left: 15%;
+  border: 1px solid #38FFFA;
+  border-radius: 10px;
+  background-color: #0582A2;
+  overflow: hidden;
+}
+
+.bg .mainContent .left-zone .guide-zone {
+  position: relative;
+  top: 50px;
+  font-size: 20px;
+  color: #FFF;
+  line-height: 2;
+  text-indent: 80px;
+}
+
+.bg .mainContent .left-zone textarea {
+  padding: 30px 40px 30px 24px;
+  overflow-y: auto;
+  width: 100%;
+  min-height: 400px;
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: #ffffff;
+  line-height: 30px;
+  letter-spacing: 3px;
+  resize: none;
+  white-space: normal;
+  word-break: normal;
+  text-align: justify;
+  z-index: 1000;
+  margin-left: 16px;
+  outline: 0;
+}
+
+.bg .mainContent .right-top-zone {
+  display: inline-block;
+  float: right;
+  width: 20%;
+  margin-left: 3.5%;
+  margin-right: 3.5%;
+  height: 240px;
+  border: 1px solid #38FFFA;
+  border-radius: 10px;
+}
+
+.bg .mainContent .right-bottom-zone {
+  display: inline-block;
+  float: right;
+  width: 20%;
+  margin-left: 3.5%;
+  margin-right: 3.5%;
+  margin-top: 10px;
+  height: 150px;
+  border: 1px solid #38FFFA;
+  border-radius: 10px;
+}
+
+.bg .mainContent .right-zone {
+  display: none;
+}
+
+.bg .mainContent .right-top-zone .radioDiv,
+.bg .mainContent .right-top-zone .title,
+.bg .mainContent .right-bottom-zone .radioDiv,
+.bg .mainContent .right-bottom-zone .title {
+  width: 100%;
+}
+
+.bg .mainContent .right-top-zone .radioDiv,
+.bg .mainContent .right-bottom-zone .radioDiv {
+  display: inline-block;
+  float: left;
+  height: 35px;
+  cursor: pointer;
+}
+
+.bg .mainContent .right-top-zone .radioDiv.disabled,
+.bg .mainContent .right-bottom-zone .radioDiv.disabled {
+  cursor: default;
+}
+
+.bg .mainContent .right-top-zone .title,
+.bg .mainContent .right-bottom-zone .title {
+  font-size: 20px;
+  color: #fff;
+  line-height: 2.2;
+  text-align: center;
+}
+
+.bg .mainContent .right-top-zone .radioDiv .imgDiv,
+.bg .mainContent .right-bottom-zone .radioDiv .imgDiv {
+  display: inline-block;
+  float: left;
+  width: 20px;
+  height: 20px;
+  margin-left: 70px;
+  margin-top: 13px;
+  background: url(./circle.png) no-repeat;
+}
+
+.bg .mainContent .right-top-zone .radioDiv.selected .imgDiv,
+.bg .mainContent .right-bottom-zone .radioDiv.selected .imgDiv {
+  width: 20px;
+  height: 20px;
+  background: url(./circle_selected.png) no-repeat;
+}
+
+.bg .mainContent .right-top-zone .radioDiv.disabled .imgDiv,
+.bg .mainContent .right-bottom-zone .radioDiv.disabled .imgDiv {
+  width: 20px;
+  height: 20px;
+  background: url(./circle_grey.png) no-repeat;
+}
+
+.bg .mainContent .right-top-zone .radioDiv.disabled .descDiv,
+.bg .mainContent .right-bottom-zone .radioDiv.disabled .descDiv {
+  color: #808080;
+}
+
+.bg .mainContent .right-top-zone .descDiv,
+.bg .mainContent .right-bottom-zone .descDiv {
+  display: inline-block;
+  float: left;
+  font-size: 20px;
+  color: #fff;
+  line-height: 2.2;
+}
+
+.bg .mainContent .top {
+  overflow: hidden;
+}
+
+.bg .mainContent .middle {
+  height: 115px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.bg .mainContent .middle .playImg {
+  display: inline-block;
+  float: left;
+  background: url(./asr.png) no-repeat;
+  width: 185px;
+  height: 185px;
+  margin-left: 532.5px;
+	margin-top: 4px;
+	border-radius: 90px;
+  cursor: pointer;
+}
+.bg .mainContent .middle .playImg.recording{
+	background: url(./asr_recording.gif) no-repeat;
+}
+/*
+
+.bg .mainContent .middle .playImg.recognizing{
+	background: url(./asr_recognizing.gif);
+} */
+
+.bg .mainContent .bottom {
+  background-color: #023842;
+  height: 93px;
+  color: white;
+  padding-top: 20px;
+  text-align: right;
+  padding-right: 75px;
+}
+
+.bg .mainContent .bottom label{
+  margin-left: 20px;
+}
+
+.form-control{
+  display: inline-block;
+  width: 90px;
+  padding: 0 12px;
+  height: 28px;
+}
