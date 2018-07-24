@@ -10,7 +10,7 @@ const fs = require('fs')
 const path = require('path')
 const { dialog, ipcMain } = require('electron')
 const TransStream = require('./TransStream')
-const highWaterMark = 8 * 1024
+const highWaterMark = 16 * 1024
 
 class Trans {
   constructor(win) {
@@ -53,7 +53,7 @@ class Trans {
           fs.createReadStream(filepath, {
             highWaterMark
           })
-            .pipe(transStream)
+            .pipe(this.transStream)
             .on('result', (text, isEnd) => {
               if (!isEnd) {
                 this.transResult += text

@@ -37,10 +37,11 @@ class TransStream extends Transform {
   constructor(options = {}) {
     super(options)
     this.sampleRate = options.sampleRate || 16000
-    this.servUrl = options.service || "https://demo-edu.hivoice.cn:10443/asr/pcm"
+    this.servUrl = options.service || "https://demo-edu.hivoice.cn:10443"
     this.appkey = options.appkey || "45gn7md5n44aak7a57rdjud3b5l4xdgv75saomys"
     this.XNumber = 0
     this.sid = uuid()
+    this.servUrl += "/asr/pcm"
   }
 
   _transform(chunck, encoding, next) {
