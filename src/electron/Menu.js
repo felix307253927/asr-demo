@@ -7,25 +7,22 @@
  */
 'use strict';
 const electron = require('electron')
-const { Menu } = electron
-const task = require('./task')
+const path = require('path')
+const fs = require('fs')
+const { app, Menu, dialog } = electron
+const downloads = app.getPath('downloads')
 
 module.exports = class MyMenu {
-  constructor(win) {
+  constructor(win, trans) {
+    const self = this
     const menus = [
       {
         label: "文件",
         submenu: [
           {
-            label: "导入",
-            click() {
-              win.webContents.send('open-xlsx')
-            }
-          },
-          {
             label: "导出",
             click() {
-              task.zip(win)
+              self.exportTrans(win, trans)
             }
           },
           {
@@ -58,12 +55,37 @@ module.exports = class MyMenu {
         ]
       }
     ]
-    if (1 ||process.env.NODE_ENV === 'development') {
+    if (1 || process.env.NODE_ENV === 'development') {
       menus[1].submenu.push({ role: 'toggledevtools' })
       menus[1].submenu.push({ role: 'reload' })
     }
     const menu = Menu.buildFromTemplate(menus)
     Menu.setApplicationMenu(menu)
+  }
+
+  exportTrans(win, trans) {
+    const defaultName = trans.name.replace(/\..*$/, '') || "识别文本"
+    if (trans.transResult) {
+      dialog.showSaveDialog(win, {
+        title: "导出识别文本",
+        defaultPath: path.join(downloads, `${defaultName}.txt`),
+        filters: [{ name: '文本', extensions: ['txt'] }]
+      }, (name) => {
+        if (name) {
+          const out = fs.createWriteStream(name)
+          out.write(trans.transResult, 'utf-8')
+          out.end()
+          out.on('error', () => {
+            dialog.showErrorBox("导出文件失败", "导出文件失败, 请重试")
+          })
+        }
+      })
+    } else {
+      dialog.showMessageBox(win, {
+        title: "提示",
+        message: "未发现转写文本, 请先转写后再导出"
+      })
+    }
   }
 }
 

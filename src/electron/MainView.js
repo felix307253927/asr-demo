@@ -6,7 +6,7 @@
  * @last Modified time: 2018-07-13 17:16:19 
  */
 'use strict';
-const { BrowserWindow, app } = require('electron')
+const { BrowserWindow, dialog, app } = require('electron')
 const path = require('path')
 const Menu = require('./Menu')
 const Trans = require('./trans')
@@ -14,21 +14,22 @@ const Trans = require('./trans')
 class MainView {
   constructor() {
     this.init()
-    new Menu(this.win)
-    new Trans(this.win)
+    this.trans = new Trans(this.win)
+    new Menu(this.win, this.trans)
   }
 
   init() {
     this.win = new BrowserWindow({
       width: 1366,
       height: 768,
-      minWidth: 1366,
+      minWidth: 1200,
       minHeight: 768,
       // useContentSize: true,
       center: true,
       resizable: true,
-      title: "ASR DEMO",
+      title: "云知声ASR DEMO",
       show: true,
+      backgroundColor: "#ffffff",
       icon: path.join(__dirname, 'resources/icon/icon.ico '),
       webPreferences: {
         javascript: true,
@@ -38,16 +39,24 @@ class MainView {
         // preload: '../preload.js'
       }
     })
-    this.win.once('show', () => {
-      setTimeout(() => {
-        this.win.maximize()
-      })
+    this.win.once('ready-to-show', () => {
+      this.win.show()
+      this.win.maximize()
     })
     this.win.on('close', (e) => {
       if (this.win.isVisible()) {
         e.preventDefault()
-        this.hide()
-        app.exit(0)
+        dialog.showMessageBox(this.win, {
+          title: "提示",
+          message: "是否退出程序?",
+          buttons: ["最小化", "退出"]
+        }, (idx) => {
+          if (idx == 0) {
+            this.hide()
+          } else {
+            app.exit(0)
+          }
+        })
       }
     })
   }

@@ -8,20 +8,24 @@
 'use strict';
 const fs = require('fs')
 const path = require('path')
-const { app, BrowserWindow, ipcMain, Menu } = require('electron')
+const { app, BrowserWindow } = require('electron')
 global.recentlyUsedPath = app.getPath('documents')
 global.userDataPath = app.getPath('userData')
 if (!fs.existsSync(global.userDataPath)) {
   fs.mkdirSync(global.userDataPath)
 }
-require('./task')
+// require('./task')
 const MainView = require('./MainView')
+const Tray = require('./Tray')
 // const Splash = require('./Splash')
 
 class App {
   constructor() {
     app.once('ready', () => {
       this.initApp()
+    })
+    app.on('quit', ()=>{
+      this.tray.destroy()
     })
   }
 
@@ -32,6 +36,7 @@ class App {
       this.registerDevTool()
     }
     this.main = new MainView()
+    this.tray = new Tray(this.main)
     // this.splash = new Splash()
     this.main.loadURL(url)
     // this.main.win.once('ready-to-show', () => {

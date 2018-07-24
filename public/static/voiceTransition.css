@@ -1,7 +1,7 @@
 @CHARSET "UTF-8";
 .bg {
   background: url(./transition_bg.jpg) center 0 no-repeat;
-  min-width: 1300px;
+  min-width: 1000px;
 	min-height: 900px;
 	height: 100%;
 }
@@ -9,6 +9,7 @@
 .bg .mainContent {
   border: 1px solid #38FFFA;
   height: 650px;
+  min-width: 1000px;
   margin-top: 130px;
   margin-bottom: 70px;
   padding: 0px;
@@ -174,7 +175,7 @@
   float: left;
   width: 218px;
   height: 185px;
-  margin-left: 532.5px;
+  margin-left: 515px;
   margin-top: 23px;
 }
 
@@ -209,12 +210,12 @@
   padding-right: 75px;
 }
 .bg .mainContent .bottom label{
-  margin-left: 20px;
+  margin-left: 10px;
 }
 
 .form-control{
   display: inline-block;
-  width: 90px;
+  width: 85px;
   padding: 0 12px;
   height: 28px;
 }

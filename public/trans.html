@@ -88,10 +88,6 @@
           <option value="cn" selected="selected">中文</option>
           <option value="en">英文</option>
         </select>
-        <span>
-          <label for="http">HTTP:</label>
-          <input id="http" type="checkbox">
-        </span>
         <label for="sample">采样率:</label>
         <select id="sample" class="form-control">
           <option value="8000">8000</option>
@@ -114,24 +110,9 @@
       </div>
     </div>
   </div>
-  <script src="static/sdk/uns_asr_sdk.min.js" type="text/javascript"></script>
   <script src="static/util.js" type="text/javascript"></script>
   <script type="text/javascript">
     const { ipcRenderer } = require('electron')
-    var sdk = new ASRSDK({
-      debug: true,
-      host: '',
-      closeMic: true
-    })
-
-    function languageChange(v) {
-      sdk.setLanguage(v)
-      if (v === 'en') {
-        $("#http").parent().hide()
-      } else {
-        $("#http").parent().show()
-      }
-    }
 
     function checkImportFileName(fileName) {
       if (fileName == null || fileName == undefined || fileName == "") {
@@ -195,12 +176,12 @@
       window.history.back(-1);
     };
 
-    var resultOutput = '', isOpenFile = false;
+    var isOpenFile = false;
+    ipcRenderer.send('trans-result')
     $('#flashImg').on('click', function () {
       if (!this.isClick) {
         isOpenFile = true
-        ipcRenderer.send('open-file')
-        resultOutput = ''
+        ipcRenderer.send('open-file', +$("#sample").val() || 16000)
         $("#resultOutput").val('');
         $("#flashImg").addClass("buffering");
         $(".guide-zone").hide();
@@ -209,19 +190,21 @@
     ipcRenderer.on('open-file', function (e, filePath) {
       if (!filePath) {
         $("#flashImg").removeClass("buffering");
-        $(".guide-zone").show()
+        if (!$("#resultOutput").val()) {
+          $(".guide-zone").show()
+        }
         isOpenFile = false
       }
     })
     ipcRenderer.on("trans-result", function (e, text, isEnd) {
       isOpenFile = false
-      if (isEnd) {
-        $("#resultOutput").val(text);
-        $("#flashImg").removeClass("buffering");
-      } else {
-        resultOutput += text
-        $("#resultOutput").val(resultOutput);
+      if (text) {
+        $(".guide-zone").hide();
       }
+      if (isEnd) {
+        $("#flashImg").removeClass("buffering");
+      }
+      $("#resultOutput").val(text);
     })
     ipcRenderer.on("trans-error", function (e, err) {
       isOpenFile = false

@@ -6,7 +6,8 @@ html{
 body {
   font-family: "Microsoft YaHei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
 	background-color: #FFFFFF;
-	height: 100%;
+  height: 100%;
+  min-width: 1200px;
 }
 
 a,
@@ -73,7 +74,7 @@ a:focus {
 
 .navbar-footer {
   margin-bottom: 0px;
-  min-width: 1300px;
+  min-width: 1000px;
   width: 100%;
   margin-top: -53px;
 }
@@ -326,7 +327,7 @@ h3.back {
 }
 
 .mainContent {
-  min-width: 1250px;
+  min-width: 1200px;
   overflow: hidden;
 }
 

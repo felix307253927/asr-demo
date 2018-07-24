@@ -14,16 +14,21 @@ const highWaterMark = 16 * 1024
 
 class Trans {
   constructor(win) {
+    this.name = ''
+    this.transResult = ''
     this.registerIpc(win)
   }
 
   registerIpc(win) {
-    ipcMain.on('open-file', (e) => {
-      this.open(win, e)
+    ipcMain.on('open-file', (e, sample) => {
+      this.open(win, e, sample)
+    })
+    ipcMain.on('trans-result', (e) => {
+      e.sender.send('trans-result', this.transResult)
     })
   }
 
-  open(win, event) {
+  open(win, event, sampleRate = 16000) {
     dialog.showOpenDialog(win, {
       title: "请选择要转写的音频文件",
       properties: ['openFile'],
@@ -34,15 +39,25 @@ class Trans {
       if (o) {
         const filepath = o[0]
         if (/\.(wav|pcm)$/.test(filepath.toLowerCase())) {
-          // const name = path.basename(filepath)
+          this.name = path.basename(filepath)
+          this.transResult = ''
           fs.createReadStream(filepath, {
             highWaterMark
           })
-            .pipe(new TransStream())
+            .pipe(new TransStream({
+              sampleRate,
+              highWaterMark
+            }))
             .on('result', (text, isEnd) => {
-              event.sender.send('trans-result', text, isEnd)
+              if (!isEnd) {
+                this.transResult += text
+              } else {
+                this.transResult = text
+              }
+              event.sender.send('trans-result', this.transResult, isEnd)
             })
             .on('result-error', (e, err) => {
+              this.transResult = ''
               event.sender.send('trans-error', err)
             })
           event.sender.send(filepath)
