@@ -1,8 +1,8 @@
 {
   "name": "asr_demo",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "electron.bundle.js",
-  "author": "felix",
+  "author": "云知声",
   "license": "ISC",
   "scripts": {
     "start": "electron .",
@@ -13,7 +13,7 @@
   "dependencies": {},
   "build": {
     "appId": "com.unisound.asr_demo",
-    "productName": "云知声识别DEMO",
+    "productName": "asr_demo",
     "win": {
       "target": "nsis",
       "icon": "resources\\icon\\icon.ico",
