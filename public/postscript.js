@@ -8,10 +8,11 @@
 'use strict';
 
 const fs = require("fs")
+const path = require("path")
 const { remote } = require("electron")
 const app = remote.app
 
-const configPath = path.join(app.getPath('exe'), "config.json")
+const configPath = path.join(path.dirname(app.getPath('exe')), "config.json")
 if (fs.existsSync(configPath)) {
   window.config = JSON.parse(fs.readFileSync(configPath, { encoding: 'utf-8' }))
 } else {
