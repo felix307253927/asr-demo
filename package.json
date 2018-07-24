@@ -1,5 +1,5 @@
 {
-  "name": "asr-demo",
+  "name": "asr_demo",
   "version": "0.1.0",
   "private": true,
   "main": "./src/electron/index.js",

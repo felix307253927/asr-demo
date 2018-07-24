@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Starting App</title>
+  <style>
+    * {
+      -webkit-user-select: none;
+      cursor: default !important;
+      -webkit-user-drag: none;
+    }
+
+    body {
+      overflow: hidden;
+      margin: 0;
+      background: #ECEFF1;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="splash_container">
+    <form onsubmit="return false">
+      <label>
+        <input type="text" placeholder="请输入服务地址">
+      </label>
+    </form>
+  </div>
+
+  <script>
+    var {remote} = require("electron")
+  </script>
+</body>
+
+</html>

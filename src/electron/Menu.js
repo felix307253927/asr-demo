@@ -13,7 +13,7 @@ const { app, Menu, dialog } = electron
 const downloads = app.getPath('downloads')
 
 module.exports = class MyMenu {
-  constructor(win, trans) {
+  constructor(main) {
     const self = this
     const menus = [
       {
@@ -22,7 +22,13 @@ module.exports = class MyMenu {
           {
             label: "导出",
             click() {
-              self.exportTrans(win, trans)
+              self.exportTrans(main.win, main.trans)
+            }
+          },
+          {
+            label: "设置",
+            click() {
+              main.servWin.show()
             }
           },
           {
