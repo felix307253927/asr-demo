@@ -38,7 +38,7 @@ class MainView {
         plugins: true,
         nodeIntegration: true,
         webSecurity: false,
-        preload: 'preload.js'
+        preload: path.join(__dirname, 'postscript.js')
       }
     })
     this.win.once('ready-to-show', () => {
