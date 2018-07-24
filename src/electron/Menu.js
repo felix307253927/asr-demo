@@ -55,7 +55,7 @@ module.exports = class MyMenu {
         ]
       }
     ]
-    if (1 || process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === 'development') {
       menus[1].submenu.push({ role: 'toggledevtools' })
       menus[1].submenu.push({ role: 'reload' })
     }
