@@ -26,12 +26,6 @@ module.exports = class MyMenu {
             }
           },
           {
-            label: "设置",
-            click() {
-              main.servWin.show()
-            }
-          },
-          {
             label: "退出",
             role: "quit"
           }

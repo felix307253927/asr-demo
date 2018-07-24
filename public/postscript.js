@@ -7,4 +7,15 @@
  */
 'use strict';
 
-const fs = require("")
+const fs = require("fs")
+const { remote } = require("electron")
+const app = remote.app
+
+const configPath = path.join(app.getAppPath(), "config.json")
+if (fs.existsSync(configPath)) {
+  window.config = JSON.parse(fs.readFileSync(configPath, { encoding: 'utf-8' }))
+} else {
+  window.config = {
+    service: "https://demo-edu.hivoice.cn:10443"
+  }
+}

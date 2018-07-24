@@ -10,7 +10,7 @@ const fs = require('fs')
 const path = require('path')
 const { dialog, ipcMain } = require('electron')
 const TransStream = require('./TransStream')
-const highWaterMark = 16 * 1024
+const highWaterMark = 8 * 1024
 
 class Trans {
   constructor(win) {
@@ -29,6 +29,10 @@ class Trans {
   }
 
   open(win, event, sampleRate = 16000) {
+    if (this.transStream) {
+      this.transStream.stop()
+      this.transStream = null
+    }
     dialog.showOpenDialog(win, {
       title: "请选择要转写的音频文件",
       properties: ['openFile'],
@@ -41,13 +45,15 @@ class Trans {
         if (/\.(wav|pcm)$/.test(filepath.toLowerCase())) {
           this.name = path.basename(filepath)
           this.transResult = ''
+          this.transStream = new TransStream({
+            service: global.config.service,
+            sampleRate,
+            highWaterMark
+          })
           fs.createReadStream(filepath, {
             highWaterMark
           })
-            .pipe(new TransStream({
-              sampleRate,
-              highWaterMark
-            }))
+            .pipe(transStream)
             .on('result', (text, isEnd) => {
               if (!isEnd) {
                 this.transResult += text

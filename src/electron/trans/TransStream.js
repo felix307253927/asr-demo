@@ -50,14 +50,21 @@ class TransStream extends Transform {
     this.send(pcm)
     setTimeout(() => {
       next()
-    }, 300)
+    }, 250)
   }
 
   _final() {
     this.send(null, true)
   }
 
+  stop() {
+    this._isStop = true
+  }
+
   send(stream, isEnd) {
+    if (this._isStop) {
+      return
+    }
     let formData = new FormData()
     let headers = {
       'Content-Type': 'multipart/form-data; boundary=' + formData.getBoundary(),
@@ -78,7 +85,7 @@ class TransStream extends Transform {
     axios.post(this.servUrl, formData, {
       headers
     }).then((res) => {
-      if (res.data) {
+      if (res.data && !this._isStop) {
         if (isEnd && res.data.allResult) {
           const result = []
           res.data.allResult.forEach(t => {
@@ -93,9 +100,11 @@ class TransStream extends Transform {
         }
       }
     }).catch((err) => {
-      this.hasError = true
-      if (isEnd) {
-        this.emit('result-error', err.toString())
+      if (!this._isStop) {
+        this.hasError = true
+        if (isEnd) {
+          this.emit('result-error', err.toString())
+        }
       }
     })
   }

@@ -10,13 +10,13 @@ const { BrowserWindow, dialog, app } = require('electron')
 const path = require('path')
 const Menu = require('./Menu')
 const Trans = require('./trans')
-const ServWin = require('./ServConfig')
+// const ServWin = require('./ServConfig')
 
 class MainView {
   constructor() {
     this.init()
     this.trans = new Trans(this.win)
-    this.servWin = new ServWin(this.win)
+    // this.servWin = new ServWin(this.win)
     new Menu(this)
   }
 

@@ -22,9 +22,21 @@ const Tray = require('./Tray')
 class App {
   constructor() {
     app.once('ready', () => {
+      const configPath = path.join(app.getAppPath(), "config.json")
+      if (fs.existsSync(configPath)) {
+        global.config = JSON.parse(fs.readFileSync(configPath, { encoding: 'utf-8' }))
+      } else {
+        fs.writeFileSync(configPath, JSON.stringify({
+          service: "https://demo-edu.hivoice.cn:10443"
+        }))
+      }
+      global.config = global.config || {}
+      if (!global.config.service) {
+        global.config.service = "https://demo-edu.hivoice.cn:10443"
+      }
       this.initApp()
     })
-    app.on('quit', ()=>{
+    app.on('quit', () => {
       this.tray.destroy()
     })
   }
@@ -44,6 +56,7 @@ class App {
     //   this.splash.destroy()
     //   this.splash = null
     // })
+    this.main.win.maximize()
   }
 
   registerDevTool() {
