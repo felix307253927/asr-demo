@@ -38,7 +38,7 @@ class MainView {
         plugins: true,
         nodeIntegration: true,
         webSecurity: false,
-        // preload: '../preload.js'
+        preload: 'preload.js'
       }
     })
     this.win.once('ready-to-show', () => {
