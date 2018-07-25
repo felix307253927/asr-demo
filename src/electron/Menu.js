@@ -55,9 +55,8 @@ module.exports = class MyMenu {
       //   ]
       // }
     ]
-    if (1||process.env.NODE_ENV === 'development') {
-      menus[1].submenu.push({ role: 'toggledevtools' })
-      menus[1].submenu.push({ role: 'reload' })
+    if (1 || process.env.NODE_ENV === 'development') {
+      menus[1].submenu.push({ role: 'toggledevtools', label: "devtools" })
     }
     const menu = Menu.buildFromTemplate(menus)
     Menu.setApplicationMenu(menu)
