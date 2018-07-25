@@ -9,7 +9,7 @@
     "build-win64": "build --win --x64",
     "build-win32": "build --win --ia32"
   },
-  "description": "云知声识别DEMO",
+  "description": "ASRDEMO",
   "dependencies": {},
   "build": {
     "appId": "com.unisound.asr_demo",

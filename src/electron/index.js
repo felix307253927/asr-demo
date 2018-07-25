@@ -23,6 +23,7 @@ class App {
   constructor() {
     app.once('ready', () => {
       const configPath = path.join( path.dirname(app.getPath('exe')), "config.json")
+      console.log(configPath);
       if (fs.existsSync(configPath)) {
         global.config = JSON.parse(fs.readFileSync(configPath, { encoding: 'utf-8' }))
       } else {

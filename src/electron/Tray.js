@@ -12,7 +12,7 @@ const path = require('path')
 class AppTray {
   constructor(mainView) {
     this.mainView = mainView
-    this.createTray("云知声ASR DEMO")
+    this.createTray("ASR DEMO")
   }
 
   createTray(name) {

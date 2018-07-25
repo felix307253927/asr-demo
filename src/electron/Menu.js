@@ -47,13 +47,13 @@ module.exports = class MyMenu {
           { label: "关闭", role: 'close' }
         ]
       },
-      {
-        label: '帮助',
-        role: "help",
-        submenu: [
-          { label: "关于", click() { electron.shell.openExternal('http://www.unisound.com') } },
-        ]
-      }
+      // {
+      //   label: '帮助',
+      //   role: "help",
+      //   submenu: [
+      //     { label: "关于", click() { electron.shell.openExternal('http://www.unisound.com') } },
+      //   ]
+      // }
     ]
     if (1||process.env.NODE_ENV === 'development') {
       menus[1].submenu.push({ role: 'toggledevtools' })
