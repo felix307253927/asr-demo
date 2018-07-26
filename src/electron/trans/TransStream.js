@@ -12,6 +12,9 @@ const FormData = require('form-data')
 const { Transform } = require("stream")
 const Resampler = require('../../utils/Resampler')
 
+const REG = /[。；，？！.,;?!]$/
+const DOTREG = /[,，]$/
+
 function int16ToFloat32BitPCM(input) {
   let i = input.length;
   let output = new Float32Array(i);
@@ -87,14 +90,34 @@ class TransStream extends Transform {
       headers
     }).then((res) => {
       if (res.data && !this._isStop) {
-        if (isEnd && res.data.allResult) {
+        if (isEnd) {
           const result = []
-          res.data.allResult.forEach(t => {
-            if (t.text && t.text.status === 'const') {
-              result.push(t.text.result)
-            }
-          })
+          if (res.data.allResult) {
+            res.data.allResult.forEach(r => {
+              if (r.text && r.text.status === 'const') {
+                let idx = result.length - 1
+                idx = idx >= 0 ? idx : 0
+                const last = result[idx] || ''
+                if (idx === 0 && !last.length) {
+                  result.push(`  ${r.text.result}`)
+                } else if (last.length >= 300 && REG.test(r.text.result)) {
+                  if (DOTREG.test(last)) {
+                    result[idx] = `${last.substr(0, last.length - 1)}。\r\n`
+                  } else {
+                    result[idx] = `${last}${REG.test(last) ? "" : "。"}\r\n`
+                  }
+                  result.push(`  ${r.text.result}`)
+                } else {
+                  result[idx] = `${last}${r.text.result}`
+                }
+              }
+            })
+          }
           this.isEnd = true
+          const last = result[result.length - 1] || ''
+          if (DOTREG.test(last)) {
+            result[result.length - 1] = `${last.substr(0, last.length - 1)}。`
+          }
           this.emit('result', result.join(''), this.isEnd)
         } else if (!this.isEnd && res.data.currResult && res.data.currResult.text && res.data.currResult.text.status === 'const') {
           this.emit('result', res.data.currResult.text.result)

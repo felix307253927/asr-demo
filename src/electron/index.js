@@ -8,7 +8,7 @@
 'use strict';
 const fs = require('fs')
 const path = require('path')
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, dialog } = require('electron')
 global.recentlyUsedPath = app.getPath('documents')
 global.userDataPath = app.getPath('userData')
 if (!fs.existsSync(global.userDataPath)) {
@@ -22,14 +22,18 @@ const Tray = require('./Tray')
 class App {
   constructor() {
     app.once('ready', () => {
-      const configPath = path.join( path.dirname(app.getPath('exe')), "config.json")
-      console.log(configPath);
+      const configPath = path.join(path.dirname(app.getPath('exe')), "config.json")
+      // console.log(configPath);
       if (fs.existsSync(configPath)) {
         global.config = JSON.parse(fs.readFileSync(configPath, { encoding: 'utf-8' }))
       } else {
-        fs.writeFileSync(configPath, JSON.stringify({
-          service: "https://demo-edu.hivoice.cn:10443"
-        }))
+        try {
+          fs.writeFileSync(configPath, JSON.stringify({
+            service: "https://demo-edu.hivoice.cn:10443"
+          }))
+        } catch (e) {
+          dialog.showErrorBox("打开配置文件失败", "请右击鼠标选择使用管理员权限运行。")
+        }
       }
       global.config = global.config || {}
       if (!global.config.service) {
